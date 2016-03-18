@@ -2,7 +2,6 @@ package org.henry.jackson;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
@@ -88,7 +87,6 @@ public class SavedSearchMessageJsonDeserializer extends JsonDeserializer<SavedSe
 					token = jp.nextToken();
 					String value = jp.getText();
 					if (value != null) {
-						value = StringEscapeUtils.unescapeJava(value);
 						ObjectMapper om = new ObjectMapper();
 						TargetFilter[] filters = om.readValue(value, TargetFilter[].class);
 						getMsg().setFilters(filters);

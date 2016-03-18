@@ -65,9 +65,5 @@ public class SavedSearchMessage
 			this.filterId = value;
 		}
 
-		public enum Operator {
-			EQUAL,
-			GREATER
-		}
 	}
 }

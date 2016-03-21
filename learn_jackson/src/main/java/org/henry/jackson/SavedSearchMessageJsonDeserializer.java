@@ -22,17 +22,15 @@ public class SavedSearchMessageJsonDeserializer extends JsonDeserializer<SavedSe
 		JsonToken token = jp.nextToken();
 		while(token != null) {
 			String name = jp.getCurrentName();
-			String text = jp.getText();
 			if (token == JsonToken.FIELD_NAME) {
 				SavedSearchMessage msg = getMsg();
-				JsonToken json;
 				switch (name) {
 				case "id" :
-					json = jp.nextToken();
+					jp.nextToken();
 					msg.setId(jp.getText());
 					break;
 				case "queryStr" :
-					json = jp.nextToken();
+					jp.nextToken();
 					msg.setQueryStr(jp.getText());
 					break;
 				case "parameters" :

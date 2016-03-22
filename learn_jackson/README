@@ -1,0 +1,6 @@
+* JsonAutoDetect and Visibility
+Control which fields and methods can be used for serialization and deserialization.
+
+* Mix-in class
+Change the way of serializing and deserializing existing classes 
+or make it possible for unmodifiable classes to be serialized or deserialized.

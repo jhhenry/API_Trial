@@ -6,7 +6,6 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -17,6 +16,22 @@ import org.testng.annotations.Test;
 
 public class JsonAutoDetectTest
 {
+	@Test
+	public void testDefaultDeserialization() throws JsonParseException, JsonMappingException, IOException
+	{
+		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		ObjectMapper om = new ObjectMapper();
+		User4 u = om.readValue(json, User4.class);
+		
+		//om.setVisibilityChecker(om.getVisibilityChecker().withFieldVisibility(Visibility.ANY));
+		Assert.assertNotNull(u);
+		Assert.assertEquals(u.name, "John");
+		Assert.assertEquals(u.age, 18);
+		// @JsonProperty can co-exist with and overrides the "CREATOR"
+		Assert.assertEquals(u.email, "john.smith@gmail.com");
+	}
+	
+	
 	@Test
 	public void testJsonAutoDetectWithMethodCreator() throws JsonParseException, JsonMappingException, IOException
 	{
@@ -112,10 +127,6 @@ public class JsonAutoDetectTest
 			return u;
 		}
 
-//		public void setEmail(String email) {
-//			this.email = email;
-//		}
-		
 	}
 	
 	private static class User3
@@ -128,6 +139,19 @@ public class JsonAutoDetectTest
 			this.age = age;
 			this.name = name;
 		}
+	}
+	
+	
+//	@JsonAutoDetect
+	private static class User4
+	{
+		@JsonProperty("age")
+		private int age;
+		@JsonProperty("name")
+		private String name;
+		@JsonProperty("email")
+		private String email;
+		
 	}
 	
 }

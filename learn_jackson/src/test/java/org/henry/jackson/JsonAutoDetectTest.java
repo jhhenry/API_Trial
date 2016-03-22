@@ -42,6 +42,31 @@ public class JsonAutoDetectTest
 		Assert.assertEquals(u.email, null);
 	}
 	
+	@Test
+	public void testJsonAutoDetectWithVisibilityChecker() throws JsonParseException, JsonMappingException, IOException
+	{
+		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		ObjectMapper om = new ObjectMapper();
+		//om.setVisibilityChecker(om.getVisibilityChecker().withCreatorVisibility(Visibility.ANY).withFieldVisibility(Visibility.ANY));
+		om.setVisibility(JsonMethod.FIELD, Visibility.ANY);
+		User3 u = om.readValue(json, User3.class);
+		Assert.assertNotNull(u);
+		Assert.assertEquals(u.name, "John");
+		Assert.assertEquals(u.age, 18);
+		Assert.assertEquals(u.email, "john.smith@gmail.com");
+		
+		try {
+			om = new ObjectMapper();
+			om.setVisibilityChecker(om.getVisibilityChecker().withCreatorVisibility(Visibility.NONE));
+			u = om.readValue(json, User3.class);
+			Assert.fail("should have thrown exception due to No suitable constructor found for type " );
+		} catch (Exception ex) {
+			Assert.assertEquals(ex.getClass(), JsonMappingException.class);
+			//should read here;
+		}
+		
+	}
+	
 	@JsonAutoDetect(value=JsonMethod.CREATOR)
 	// @JsonIgnoreProperties(ignoreUnknown=true)
 	private static class User
@@ -72,6 +97,7 @@ public class JsonAutoDetectTest
 	{
 		private int age;
 		private String name;
+//		@JsonProperty
 		private String email;
 		
 //		@JsonCreator
@@ -90,6 +116,18 @@ public class JsonAutoDetectTest
 //			this.email = email;
 //		}
 		
+	}
+	
+	private static class User3
+	{
+		private int age;
+		private String name;
+		private String email;
+		
+		private User3(@JsonProperty("age") int age, @JsonProperty("name") String name) {
+			this.age = age;
+			this.name = name;
+		}
 	}
 	
 }

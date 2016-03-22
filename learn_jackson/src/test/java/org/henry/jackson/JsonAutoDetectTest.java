@@ -23,10 +23,10 @@ public class JsonAutoDetectTest
 		ObjectMapper om = new ObjectMapper();
 		User u = om.readValue(json, User.class);
 		Assert.assertNotNull(u);
-		Assert.assertNotNull(u.name);
+		Assert.assertEquals(u.name, "John");
 		Assert.assertEquals(u.age, 18);
 		// @JsonProperty can co-exist with and overrides the "CREATOR"
-		Assert.assertNotNull(u.email);
+		Assert.assertEquals(u.email, "john.smith@gmail.com");
 	}
 	
 	@JsonAutoDetect(value=JsonMethod.CREATOR)

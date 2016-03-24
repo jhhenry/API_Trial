@@ -3,10 +3,12 @@ package org.henry.jackson;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.Version;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.module.SimpleModule;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -35,6 +37,17 @@ public class MixinAnnotationTest
 		Assert.assertEquals(value.w, 22);
 	}
 	
+	@Test 
+	public void testDeseriaUsingModule() throws JsonGenerationException, JsonMappingException, IOException
+	{
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new MyModule());
+		//objectMapper.getSerializationConfig().addMixInAnnotations(Rectangle.class, MixIn.class);
+		Rectangle value = objectMapper.readValue("{\"width\":22,\"height\":33}", Rectangle.class);
+		Assert.assertEquals(value.h, 33);
+		Assert.assertEquals(value.w, 22);
+	}
+	
 	/* Inner class must be static.*/
 	static abstract class MixIn {
 		public MixIn(@JsonProperty("width") int w, @JsonProperty("height") int h) { }
@@ -57,4 +70,20 @@ public class MixinAnnotationTest
 		public int getH() { return h; }
 		public int getSize() { return w * h; }
 	} 
+	
+	
+	public class MyModule extends SimpleModule
+	{
+		
+	  public MyModule() {
+	    super("ModuleName", new Version(0,0,1,null));
+	  }
+	  
+	  @Override
+	  public void setupModule(SetupContext context)
+	  {
+	    context.setMixInAnnotations(Rectangle.class, MixIn.class);
+	    // and other set up, if any
+	  }
+	}
 }

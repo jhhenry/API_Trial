@@ -4,3 +4,6 @@ Control which fields and methods can be used for serialization and deserializati
 * Mix-in class
 Change the way of serializing and deserializing existing classes 
 or make it possible for unmodifiable classes to be serialized or deserialized.
+
+* Global configuration for ObjectMapper using Module or SimpleModule with SetupContext
+Implement or override their methods to globally customize the various kinds of configuration like 

@@ -1,0 +1,25 @@
+apply plugin: "java"
+apply plugin: "eclipse"
+
+sourceCompatibility=1.7
+version='1.0'
+
+jar {
+	manifest {
+		attributes 'Implementation-Title': 'JMockit Trial', 'Implementation-Version': version
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	compile group: 'commons-lang', name: 'commons-lang', version: '2.4'
+	compile group: 'org.apache.commons', name: 'commons-email', version: '1.4'
+	compile group: 'org.jmockit', name: 'jmockit', version: '1.22'
+	compile group: 'javax.persistence', name: 'persistence-api', version: '1.+'
+	
+	testCompile group: "org.testng", name: "testng", version: "6.9.10" 
+}

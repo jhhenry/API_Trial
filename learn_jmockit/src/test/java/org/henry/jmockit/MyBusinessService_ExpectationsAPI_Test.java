@@ -38,7 +38,7 @@ public final class MyBusinessService_ExpectationsAPI_Test {
 		new Verifications() {
 			{
 				anyEmail.send();
-				times = 2;
+				times = 1;
 			}
 		};
 	}

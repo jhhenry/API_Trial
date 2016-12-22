@@ -20,7 +20,7 @@ public class JsonIgnoreTest {
 	{
 		ObjectMapper om = new ObjectMapper();
 		User u = new User();
-		u.age = 18;
+		u.setAge(18);
 		u.setName("John");
 		u.setEmail("aa@gmail.com");
 		String json = om.writeValueAsString(u);
@@ -34,15 +34,14 @@ public class JsonIgnoreTest {
 		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
 		User u = om.readValue(json, User.class);
 		
-		Assert.assertEquals(u.age, 18);
+		Assert.assertEquals(u.getAge(), 18);
 		Assert.assertEquals(u.name, null);
 		Assert.assertEquals(u.email, null);
 	}
 	
-	@JsonAutoDetect(getterVisibility=Visibility.NONE)
+	@JsonAutoDetect//(getterVisibility=Visibility.NONE)
 	private static class User
 	{
-		@JsonProperty("age")
 		private int age;
 		private String name;
 		@JsonIgnore
@@ -63,6 +62,14 @@ public class JsonIgnoreTest {
 		@JsonIgnore
 		public void setName(String name) {
 			this.name = name;
+		}
+
+		public int getAge() {
+			return age;
+		}
+
+		public void setAge(int age) {
+			this.age = age;
 		}
 		
 	}

@@ -16,10 +16,13 @@ import org.testng.annotations.Test;
 
 public class JsonAutoDetectTest
 {
+	private static final String TEST_JASON_1 = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+
+
 	@Test
 	public void testDefaultDeserialization() throws JsonParseException, JsonMappingException, IOException
 	{
-		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		String json = TEST_JASON_1;
 		ObjectMapper om = new ObjectMapper();
 		User4 u = om.readValue(json, User4.class);
 		
@@ -35,7 +38,7 @@ public class JsonAutoDetectTest
 	@Test
 	public void testJsonAutoDetectWithMethodCreator() throws JsonParseException, JsonMappingException, IOException
 	{
-		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		String json = TEST_JASON_1;
 		ObjectMapper om = new ObjectMapper();
 		User u = om.readValue(json, User.class);
 		Assert.assertNotNull(u);
@@ -48,7 +51,7 @@ public class JsonAutoDetectTest
 	@Test
 	public void testJsonAutoDetectWithCreatorVisibility() throws JsonParseException, JsonMappingException, IOException
 	{
-		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		String json = TEST_JASON_1;
 		ObjectMapper om = new ObjectMapper();
 		User2 u = om.readValue(json, User2.class);
 		Assert.assertNotNull(u);
@@ -60,7 +63,7 @@ public class JsonAutoDetectTest
 	@Test
 	public void testJsonAutoDetectWithVisibilityChecker() throws JsonParseException, JsonMappingException, IOException
 	{
-		String json = "{\"age\":18, \"name\":\"John\", \"email\":\"john.smith@gmail.com\"}";
+		String json = TEST_JASON_1;
 		ObjectMapper om = new ObjectMapper();
 		//om.setVisibilityChecker(om.getVisibilityChecker().withCreatorVisibility(Visibility.ANY).withFieldVisibility(Visibility.ANY));
 		om.setVisibility(JsonMethod.FIELD, Visibility.ANY);

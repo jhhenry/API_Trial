@@ -1,3 +1,4 @@
+The Project uses the version 1.9.13, not version 2.
 * JsonAutoDetect and Visibility
 Control which fields and methods can be used for serialization and deserialization.
 
@@ -6,4 +7,15 @@ Change the way of serializing and deserializing existing classes
 or make it possible for unmodifiable classes to be serialized or deserialized.
 
 * Global configuration for ObjectMapper using Module or SimpleModule with SetupContext
-Implement or override their methods to globally customize the various kinds of configuration like 
+Implement or override their methods to globally customize the various kinds of configuration like
+
+Learning Resources:
+1. Github
+https://github.com/FasterXML/jackson
+
+2. Wiki Documentation for both older version 1.0+ and current version 2+ 
+http://wiki.fasterxml.com/JacksonHome
+
+3. Current Documentation
+https://github.com/FasterXML/jackson-docs
+

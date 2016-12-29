@@ -57,7 +57,6 @@ public class JsonTypeIdResolverTest
 
 		@Override
 		public void init(JavaType baseType) {
-			// TODO Auto-generated method stub
 			baseType.getTypeHandler();
 		}
 
@@ -69,7 +68,6 @@ public class JsonTypeIdResolverTest
 
 		@Override
 		public String idFromValueAndType(Object value, Class<?> suggestedType) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
@@ -85,7 +83,6 @@ public class JsonTypeIdResolverTest
 
 		@Override
 		public Id getMechanism() {
-			// TODO Auto-generated method stub
 			return Id.CUSTOM;
 		}
 		
